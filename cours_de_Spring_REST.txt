@@ -1,0 +1,162 @@
+REST API
+REST WEB SERVICES
+
+www.programmableweb.com pour trouver plein d'autres REST APIs
+
+openweathermap.org
+
+On va apprendre comment créer des REST APIs  et des Web Services avec Spring
+Discuter rapidement du concept de REST, JSON et HTTP messaging
+Nous allons installer un outil client : Postman
+Developpez des APIs REST et des web service avec @RestController
+Et construire une interface CRUD avec la BDD avec SPRING REST
+
+Quelques définitions utiles:
+API RESTful est une interface de programmation d'application qui respecte les contraintes d'architectures et permet d'interagir avec les services web RESTful
+
+API (interface de programmation d'application) : ensemble de définitions et de protocoles qui facilite la création et l'intégration de logiciels d'aplications.
+C'est une sorte d'échange entre deux parties, tu fournis une information et on te donne le contenu demandé.
+
+API aide ton client à communiquer avec le serveur hote
+
+REST : Representational State Transfer
+
+REST API : RESTful API : REST Web Services: RESTful Web Services : REST Services : RESTful Services, cela veut dire la même chose
+
+Et ce que nous allons techniquement réaliser ensemble dans ce cours: nous allons construire une application client qui donne la météo pour une ville
+Et pour cela nous aurons besoin de récupérer les données météo d'un service externe
+
+Notre application enverra une String avec le nom de la ville au service externe et pouf la météo
+
+Avec REST, nous pouvons utiliser n'importe quel langage de programmation coté client comme coté serveur
+
+le format des données sont communément XML et JSON (JavaScript Object Notation)
+
+Deuxieme chapitre : JSON (JavaScript Object Notation)
+
+très léger pour stocker et échanger des données
+utilisable avec n'importe quel autre langage
+
+un petit exemple de JSON :
+
+{
+"id": 14,
+"firstName": "Mario",
+"lastName": "Rossi",
+"active": true,
+"adress" : {
+		"street' : "100 main St",
+		"city" : "Philadelphia",
+		"state" : "Pennsylvania",
+		"zip" : "19103",
+		"country" : "USA"
+		}
+"languages" : ["Java", "C#", "Python", "Javascript"]
+}
+
+J'ai dl les fichiers de chad
+
+j'ai importer un projet Maven
+
+Versioning de maven :
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.13.3</version>
+		</dependency>
+
+A mettre dans le pom.xml sinon y aura des erreurs de dépendances
+
+create a package com.luv2code.jackson.json.demo
+create a class Etudiant.java
+
+mettre l'id, le prénom, le nom et un boolean active
+puis un public Etudiant
+et générer les setter et getter de tous
+
+etape 4 : créer main Driver app
+
+créer une nouvelle classe dans le package com.luv2code.jackson.json.demo
+nouvelle classe Conducteur en psvm
+
+et mettre un try/catch dedans 
+
+catch{Exception eww){
+	eww.printStackTrace();
+}
+
+et un try {
+
+            // créer un objet de mappage
+            ObjectMapper mapper = new ObjectMapper();
+
+            // lire le fichier JSON et le mappage et le convertir en JAVA POJO
+            //donnée/sample-lite.json
+
+            Etudiant etudiant1 = mapper.readValue(new File("data/sample-lite.json"), Etudiant.class);
+
+            //imprimer le prénom et le nom
+
+            System.out.println("prenom = " + etudiant1.getPrenom());
+            System.out.println("nom = " + etudiant1.getNom());
+
+        }
+
+Nous avons un JSON simple
+passons a un peu plus complexe
+
+on change le fichier JSON que nous lisons
+on test ça bug
+on crée une nouvelle classe pour qu'il reconnaisse les champs manquants
+une classe Adresse, on rajoute les champs, on crée un constructeur vide
+et on rajoute les getters et setters /all
+
+
+package com.luv2code.jackson.json.demo;
+
+public class Adresse {
+
+
+        private String rue;
+        private String ville;
+        private String etat;
+        private String codePostal;
+        private String pays;
+
+        public Adresse() {
+
+        }
+
+
+Mettre Adresse adresse dans etudiant
+
+et generate setter et getter
+
+// imprimer l'adresse : rue et ville
+
+            Adresse tempAdresse = etudiant1.getAdresse()
+;
+
+            System.out.println("Rue = " + tempAdresse.getRue());
+            System.out.println("Ville = " + tempAdresse.getVille());
+
+
+
+
+// imprimons les langages
+
+            for (String tempLang : etudiant1.getLangages()) {
+                System.out.println(tempLang);
+            }
+
+Comme vu précédemment, si nous ne mettons pas tout les champs, il nous sort une erreur parce que nous avons oublié un élément
+mais il est possible d'ignorer les éléments qu'il doit lire
+
+nous pouvons rajouter "entreprise" : "oui" pour faire buguer notre code
+dans le message d'erreur on peut voir "champ non reconnu"
+nous allons ignorer dans la classe Etudiant avec une annotation sur la classe
+
+@JsonIgnoreProperties(ignoreUnknown=true)
+
+
+section 58 
