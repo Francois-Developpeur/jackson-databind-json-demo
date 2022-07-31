@@ -1,14 +1,15 @@
 {
 	"id": 14,
-	"firstName": "Mario",
-	"lastName": "Rossi",
+	"prenom": "Mario",
+	"nom": "Rossi",
 	"active": true,
-	"address": {
-		"street": "100 Main St",
-		"city": "Philadelphia",
-		"state": "Pennsylvania",
-		"zip": "19103",
-		"country": "USA"
+	"adresse": {
+		"rue": "100 Main St",
+		"ville": "Philadelphia",
+		"etat": "Pennsylvania",
+		"codePostal": "19103",
+		"pays": "USA"
 	},
-	"languages" : ["Java", "C#", "Python", "Javascript"]
+	"langages" : ["Java", "C#", "Python", "Javascript"],
+	"entreprise" : "oui"
 }

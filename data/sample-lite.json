@@ -1,6 +1,6 @@
 {
 	"id": 14,
-	"firstName": "Mario",
-	"lastName": "Rossi",
+	"prenom": "Mario",
+	"nom": "Rossi",
 	"active": true
 }
